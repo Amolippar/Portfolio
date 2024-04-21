@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amol's Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <div class="left">Amol's Portfolio</div>
+            <div class="right">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/">About</a></li>
+                    <li><a href="/">Services</a></li>
+                    <li><a href="/">Project</a></li>
+                    <li><a href="/">Contact Me</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="firstSection">
+            <div class="leftSection">
+                Hi, My Name is <span class="purple">Amol</span>
+                <div>and I am a passionate</div>
+                <span id="element"></span>
+                <div class="btn-arrange">
+                    <button class="btn">Download Resume</button>
+                    <a href="https://github.com/AmolIppar"><button class="btn">Visit GitHub</button></a>
+                </div>
+            </div>
+            <div class="rightSection">
+                <img src="bg1.png" alt="">
+            </div>
+        </section>
+        <hr>
+        <section class="secondSection">
+            <span class="text-gray">What I have done so far</span>
+            <h1>Education</h1>
+            <div class="box">
+                <div class="vertical">
+                    <img class="img-top" src="Images/school image.jpg" width="100" height="50">
+                    <div class="vertical-title">
+                        10'th Board (2017-2018) 
+                    </div>
+                    <div class="vertical-desc"> Bhagwan Vidyalay,Latur</div>
+                </div>
+                <div class="vertical">
+                    <img class="img-top" src="Images/science.jpg"  width="100" height="50"> <!--style="top: -45px;"  style="top: 40px;"-->
+                    <div class="vertical-title" >
+                        12'th Board (2018-2020) 
+                    </div>
+                    <div class="vertical-desc" style="top: 50px;">Dayanand Science college,Latur</div>
+                </div>
+                <div class="vertical">
+                    <img class="img-top" src="Images/ABMSP.jpg"  width="100" height="50"><!--style="width: 60px; top: -62px; left: -30px;"   style="top: 31px;"-->
+                    <div class="vertical-title" >
+                        
+                        Bacholor's of Engineering(2020-2024) 
+                    </div>
+                    <div class="vertical-desc" style="top: 50px;">Savitribai Phule University,Pune</div>
+                </div>
+        </section>
+    </main>
+    <footer>
+        <div class="footer">
+            <div class="first-foooter">
+                <h3>Welcome to My Portfolio</h3>
+            </div>
+            <div class="second-foooter">
+                <ul>
+                    <li>Home</li>
+                    <li>About</li>
+                    <li>Services</li>
+                    <li>Contact</li>
+                </ul>
+            </div>
+            <div class="third-foooter">
+                <ul>
+                    <li>Home</li>
+                    <li>About</li>
+                    <li>Services</li>
+                    <li>Contact</li>
+                </ul>
+            </div>
+            <div class="fourth-foooter">
+                <ul>
+                    <li>Home</li>
+                    <li>About</li>
+                    <li>Services</li>
+                    <li>Contact</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-rights">Copyright &#169 www.Amolsportfolio.com | All Rights Reserved</div>
+    </footer>
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <script>
+        var typed = new Typed('#element', {
+            strings: ['Web Developer', 'Java Learner'],
+            typeSpeed: 40,
+        });
+    </script>
+
+</body>
+
+</html>
