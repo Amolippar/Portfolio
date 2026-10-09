@@ -28,6 +28,8 @@ public class ProjectDto {
     private String architecture;
     private String features;
     private String status;
+    private String deploymentStatus;
+    private String detailsUrl;
     private String githubUrl;
     private String githubFrontendUrl;
     private String githubBackendUrl;
@@ -45,10 +47,12 @@ public class ProjectDto {
                       String problemStatement, String objective, String challenges, String solution,
                       String technologies, String frontendTechStack, String backendTechStack,
                       String databaseTechStack, String tools, String responsibilities, String architecture,
-                      String features, String status, String githubUrl, String githubFrontendUrl,
-                      String githubBackendUrl, String liveDemoUrl, String documentationUrl, String imageUrl,
+                      String features, String status, String deploymentStatus, String detailsUrl,
+                      String githubUrl, String githubFrontendUrl, String githubBackendUrl,
+                      String liveDemoUrl, String documentationUrl, String imageUrl,
                       String category, Boolean isFeatured, Integer displayOrder, LocalDateTime createdAt) {
         this.id = id;
+
         this.slug = slug;
         this.title = title;
         this.shortDescription = shortDescription;
@@ -66,6 +70,8 @@ public class ProjectDto {
         this.architecture = architecture;
         this.features = features;
         this.status = status;
+        this.deploymentStatus = deploymentStatus;
+        this.detailsUrl = detailsUrl;
         this.githubUrl = githubUrl;
         this.githubFrontendUrl = githubFrontendUrl;
         this.githubBackendUrl = githubBackendUrl;
@@ -101,6 +107,8 @@ public class ProjectDto {
         private String architecture;
         private String features;
         private String status;
+        private String deploymentStatus;
+        private String detailsUrl;
         private String githubUrl;
         private String githubFrontendUrl;
         private String githubBackendUrl;
@@ -130,6 +138,8 @@ public class ProjectDto {
         public ProjectDtoBuilder architecture(String architecture) { this.architecture = architecture; return this; }
         public ProjectDtoBuilder features(String features) { this.features = features; return this; }
         public ProjectDtoBuilder status(String status) { this.status = status; return this; }
+        public ProjectDtoBuilder deploymentStatus(String deploymentStatus) { this.deploymentStatus = deploymentStatus; return this; }
+        public ProjectDtoBuilder detailsUrl(String detailsUrl) { this.detailsUrl = detailsUrl; return this; }
         public ProjectDtoBuilder githubUrl(String githubUrl) { this.githubUrl = githubUrl; return this; }
         public ProjectDtoBuilder githubFrontendUrl(String githubFrontendUrl) { this.githubFrontendUrl = githubFrontendUrl; return this; }
         public ProjectDtoBuilder githubBackendUrl(String githubBackendUrl) { this.githubBackendUrl = githubBackendUrl; return this; }
@@ -145,10 +155,12 @@ public class ProjectDto {
             return new ProjectDto(id, slug, title, shortDescription, fullDescription, problemStatement,
                     objective, challenges, solution, technologies, frontendTechStack, backendTechStack,
                     databaseTechStack, tools, responsibilities, architecture, features, status,
+                    deploymentStatus, detailsUrl,
                     githubUrl, githubFrontendUrl, githubBackendUrl, liveDemoUrl, documentationUrl,
                     imageUrl, category, isFeatured, displayOrder, createdAt);
         }
     }
+
 
     // Getters and Setters
     public Long getId() { return id; }
@@ -187,7 +199,12 @@ public class ProjectDto {
     public void setFeatures(String features) { this.features = features; }
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+    public String getDeploymentStatus() { return deploymentStatus; }
+    public void setDeploymentStatus(String deploymentStatus) { this.deploymentStatus = deploymentStatus; }
+    public String getDetailsUrl() { return detailsUrl; }
+    public void setDetailsUrl(String detailsUrl) { this.detailsUrl = detailsUrl; }
     public String getGithubUrl() { return githubUrl; }
+
     public void setGithubUrl(String githubUrl) { this.githubUrl = githubUrl; }
     public String getGithubFrontendUrl() { return githubFrontendUrl; }
     public void setGithubFrontendUrl(String githubFrontendUrl) { this.githubFrontendUrl = githubFrontendUrl; }

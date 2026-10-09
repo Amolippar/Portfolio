@@ -80,6 +80,8 @@ public class ProjectService {
                 .architecture(dto.getArchitecture())
                 .features(dto.getFeatures())
                 .status(dto.getStatus() != null ? dto.getStatus() : "Completed")
+                .deploymentStatus(dto.getDeploymentStatus() != null ? dto.getDeploymentStatus() :
+                        (dto.getLiveDemoUrl() != null && !dto.getLiveDemoUrl().isBlank() ? "deployed" : "pending_deployment"))
                 .githubUrl(dto.getGithubUrl())
                 .githubFrontendUrl(dto.getGithubFrontendUrl())
                 .githubBackendUrl(dto.getGithubBackendUrl())
@@ -106,6 +108,7 @@ public class ProjectService {
         project.setShortDescription(dto.getShortDescription());
         project.setFullDescription(dto.getFullDescription());
         project.setProblemStatement(dto.getProblemStatement());
+
         project.setObjective(dto.getObjective());
         project.setChallenges(dto.getChallenges());
         project.setSolution(dto.getSolution());
@@ -118,6 +121,7 @@ public class ProjectService {
         project.setArchitecture(dto.getArchitecture());
         project.setFeatures(dto.getFeatures());
         if (dto.getStatus() != null) project.setStatus(dto.getStatus());
+        if (dto.getDeploymentStatus() != null) project.setDeploymentStatus(dto.getDeploymentStatus());
         project.setGithubUrl(dto.getGithubUrl());
         project.setGithubFrontendUrl(dto.getGithubFrontendUrl());
         project.setGithubBackendUrl(dto.getGithubBackendUrl());
@@ -139,6 +143,10 @@ public class ProjectService {
     }
 
     public ProjectDto mapToDto(Project project) {
+        String deploymentStatus = project.getDeploymentStatus() != null ? project.getDeploymentStatus() :
+                (project.getLiveDemoUrl() != null && !project.getLiveDemoUrl().isBlank() ? "deployed" : "pending_deployment");
+        String detailsUrl = "/projects/" + (project.getSlug() != null ? project.getSlug() : project.getId());
+
         return ProjectDto.builder()
                 .id(project.getId())
                 .slug(project.getSlug())
@@ -158,6 +166,8 @@ public class ProjectService {
                 .architecture(project.getArchitecture())
                 .features(project.getFeatures())
                 .status(project.getStatus())
+                .deploymentStatus(deploymentStatus)
+                .detailsUrl(detailsUrl)
                 .githubUrl(project.getGithubUrl())
                 .githubFrontendUrl(project.getGithubFrontendUrl())
                 .githubBackendUrl(project.getGithubBackendUrl())

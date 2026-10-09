@@ -36,6 +36,9 @@ import { InstagramShowcase } from '../components/showcases/InstagramShowcase';
 import { CineVaultShowcase } from '../components/showcases/CineVaultShowcase';
 import { StockTrailShowcase } from '../components/showcases/StockTrailShowcase';
 import { DeploymentInfoModal } from '../components/showcases/DeploymentInfoModal';
+import { LiveDemoStatusModal } from '../components/showcases/LiveDemoStatusModal';
+import { normalizeProject } from '../config/projectsConfig';
+import { Play } from 'lucide-react';
 
 export const ProjectDetails = () => {
   const { slug } = useParams();
@@ -46,6 +49,8 @@ export const ProjectDetails = () => {
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
   const [isDeploymentModalOpen, setIsDeploymentModalOpen] = useState(false);
+  const [isLiveDemoModalOpen, setIsLiveDemoModalOpen] = useState(false);
+
 
   useEffect(() => {
     let isMounted = true;
@@ -58,7 +63,8 @@ export const ProjectDetails = () => {
       try {
         // Fetch all projects for next/prev pagination
         const allList = await getProjects();
-        if (isMounted) setAllProjects(allList && allList.length > 0 ? allList : INITIAL_PROJECTS);
+        const baseList = allList && allList.length > 0 ? allList : INITIAL_PROJECTS;
+        if (isMounted) setAllProjects(baseList.map(normalizeProject));
 
         // Fetch current project by slug
         let foundProject = null;
@@ -73,11 +79,12 @@ export const ProjectDetails = () => {
 
         if (isMounted) {
           if (foundProject) {
-            setProject(foundProject);
+            setProject(normalizeProject(foundProject));
           } else {
             setNotFound(true);
           }
         }
+
       } catch (err) {
         console.error('Failed to load project details:', err);
         if (isMounted) setNotFound(true);
@@ -267,18 +274,26 @@ export const ProjectDetails = () => {
               href={project.liveDemoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white shadow-lg shadow-indigo-600/25 transition transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-600/25 transition transform hover:-translate-y-0.5"
             >
-              <ExternalLink className="w-4 h-4" /> Live Demo & Preview
+              <Play className="w-4 h-4 fill-current" /> Live Demo
             </a>
           ) : (
             <button
-              onClick={() => setIsDeploymentModalOpen(true)}
+              onClick={() => setIsLiveDemoModalOpen(true)}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-indigo-50 dark:bg-indigo-950/80 hover:bg-indigo-100 dark:hover:bg-indigo-900/80 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 transition shadow-sm"
             >
-              <Terminal className="w-4 h-4" /> Architecture & Run Guide
+              <Play className="w-4 h-4 text-indigo-500" /> Live Demo (Deploy Pending)
             </button>
           )}
+
+          <button
+            onClick={() => setIsDeploymentModalOpen(true)}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition shadow-sm"
+          >
+            <Terminal className="w-4 h-4" /> Architecture & Run Guide
+          </button>
+
 
           {project.githubUrl && (
             <a
@@ -618,6 +633,14 @@ export const ProjectDetails = () => {
         </div>
       </footer>
 
+      {/* Live Demo Status & Launch Modal */}
+      <LiveDemoStatusModal
+        isOpen={isLiveDemoModalOpen}
+        onClose={() => setIsLiveDemoModalOpen(false)}
+        project={project}
+        onOpenDeployGuide={() => setIsDeploymentModalOpen(true)}
+      />
+
       {/* Deployment & Local Setup Modal */}
       <DeploymentInfoModal
         isOpen={isDeploymentModalOpen}
@@ -627,3 +650,4 @@ export const ProjectDetails = () => {
     </article>
   );
 };
+

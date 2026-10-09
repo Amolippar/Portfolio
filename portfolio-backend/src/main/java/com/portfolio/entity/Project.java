@@ -64,6 +64,9 @@ public class Project {
     @Column(length = 50)
     private String status;
 
+    @Column(length = 50)
+    private String deploymentStatus = "pending_deployment";
+
     @Column(length = 255)
     private String githubUrl;
 
@@ -101,7 +104,7 @@ public class Project {
                    String problemStatement, String objective, String challenges, String solution,
                    String technologies, String frontendTechStack, String backendTechStack,
                    String databaseTechStack, String tools, String responsibilities, String architecture,
-                   String features, String status, String githubUrl, String githubFrontendUrl,
+                   String features, String status, String deploymentStatus, String githubUrl, String githubFrontendUrl,
                    String githubBackendUrl, String liveDemoUrl, String documentationUrl, String imageUrl,
                    String category, Boolean isFeatured, Integer displayOrder, LocalDateTime createdAt) {
         this.id = id;
@@ -122,6 +125,7 @@ public class Project {
         this.architecture = architecture;
         this.features = features;
         this.status = status;
+        this.deploymentStatus = deploymentStatus != null ? deploymentStatus : "pending_deployment";
         this.githubUrl = githubUrl;
         this.githubFrontendUrl = githubFrontendUrl;
         this.githubBackendUrl = githubBackendUrl;
@@ -133,6 +137,7 @@ public class Project {
         this.displayOrder = displayOrder != null ? displayOrder : 0;
         this.createdAt = createdAt;
     }
+
 
     public static ProjectBuilder builder() {
         return new ProjectBuilder();
@@ -157,6 +162,7 @@ public class Project {
         private String architecture;
         private String features;
         private String status = "Completed";
+        private String deploymentStatus = "pending_deployment";
         private String githubUrl;
         private String githubFrontendUrl;
         private String githubBackendUrl;
@@ -186,6 +192,7 @@ public class Project {
         public ProjectBuilder architecture(String architecture) { this.architecture = architecture; return this; }
         public ProjectBuilder features(String features) { this.features = features; return this; }
         public ProjectBuilder status(String status) { this.status = status; return this; }
+        public ProjectBuilder deploymentStatus(String deploymentStatus) { this.deploymentStatus = deploymentStatus; return this; }
         public ProjectBuilder githubUrl(String githubUrl) { this.githubUrl = githubUrl; return this; }
         public ProjectBuilder githubFrontendUrl(String githubFrontendUrl) { this.githubFrontendUrl = githubFrontendUrl; return this; }
         public ProjectBuilder githubBackendUrl(String githubBackendUrl) { this.githubBackendUrl = githubBackendUrl; return this; }
@@ -200,11 +207,12 @@ public class Project {
         public Project build() {
             return new Project(id, slug, title, shortDescription, fullDescription, problemStatement,
                     objective, challenges, solution, technologies, frontendTechStack, backendTechStack,
-                    databaseTechStack, tools, responsibilities, architecture, features, status,
+                    databaseTechStack, tools, responsibilities, architecture, features, status, deploymentStatus,
                     githubUrl, githubFrontendUrl, githubBackendUrl, liveDemoUrl, documentationUrl,
                     imageUrl, category, isFeatured, displayOrder, createdAt);
         }
     }
+
 
     // Getters and Setters
     public Long getId() { return id; }
@@ -243,6 +251,8 @@ public class Project {
     public void setFeatures(String features) { this.features = features; }
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+    public String getDeploymentStatus() { return deploymentStatus; }
+    public void setDeploymentStatus(String deploymentStatus) { this.deploymentStatus = deploymentStatus; }
     public String getGithubUrl() { return githubUrl; }
     public void setGithubUrl(String githubUrl) { this.githubUrl = githubUrl; }
     public String getGithubFrontendUrl() { return githubFrontendUrl; }

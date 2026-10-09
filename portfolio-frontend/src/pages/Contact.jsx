@@ -137,10 +137,10 @@ export const Contact = () => {
                 <div>
                   <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">Email</span>
                   <a
-                    href="mailto:ipparamol99@gmail.com"
+                    href="mailto:amolippar2003@gmail.com"
                     className="text-sm font-bold text-slate-900 dark:text-white hover:text-indigo-500 transition"
                   >
-                    ipparamol99@gmail.com
+                    amolippar2003@gmail.com
                   </a>
                 </div>
               </div>
@@ -152,7 +152,7 @@ export const Contact = () => {
                 </div>
                 <div>
                   <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">Phone</span>
-                  <span className="text-sm font-bold text-slate-900 dark:text-white">+91 98765 43210</span>
+                  <span className="text-sm font-bold text-slate-900 dark:text-white">+91 9766043761</span>
                 </div>
               </div>
             </div>

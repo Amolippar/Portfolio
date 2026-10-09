@@ -84,36 +84,46 @@ export const ProjectModal = ({ project, isOpen, onClose }) => {
               )}
             </div>
 
-            <div className="flex items-center gap-2.5">
+            <div className="flex flex-wrap items-center gap-2">
+              {project.liveDemoUrl ? (
+                <a
+                  href={project.liveDemoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white transition shadow-md shadow-emerald-600/20"
+                  title="Open Live Running Application in New Tab"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" /> Live Demo
+                </a>
+              ) : (
+                <span
+                  className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs font-semibold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800"
+                  title="Cloud deployment in progress"
+                >
+                  Live Demo (Pending)
+                </span>
+              )}
               <Link
                 to={`/projects/${project.slug || project.id}`}
                 onClick={onClose}
                 className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition shadow-md shadow-indigo-600/20"
               >
-                Full Showcase <ArrowRight className="w-3.5 h-3.5" />
+                View Details <ArrowRight className="w-3.5 h-3.5" />
               </Link>
               {project.githubUrl && (
                 <a
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-white transition shadow-sm"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-white transition shadow-sm"
+                  title="GitHub Source"
                 >
-                  <Github className="w-4 h-4" /> Code
-                </a>
-              )}
-              {project.liveDemoUrl && (
-                <a
-                  href={project.liveDemoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white transition shadow-md shadow-emerald-600/20"
-                >
-                  <ExternalLink className="w-4 h-4" /> Live Demo
+                  <Github className="w-3.5 h-3.5" /> Code
                 </a>
               )}
             </div>
           </div>
+
 
           {/* Modal Body - Scrollable */}
           <div className="flex-1 overflow-y-auto p-6 space-y-6 text-slate-700 dark:text-slate-300 text-sm">

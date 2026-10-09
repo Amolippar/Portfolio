@@ -18,7 +18,10 @@ import {
 import { Github } from '../components/Icons';
 import { getProjects } from '../services/api';
 import { INITIAL_PROJECTS } from '../utils/initialData';
+import { normalizeProject } from '../config/projectsConfig';
 import { DeploymentInfoModal } from '../components/showcases/DeploymentInfoModal';
+import { LiveDemoStatusModal } from '../components/showcases/LiveDemoStatusModal';
+import { ProjectCardActions } from '../components/showcases/ProjectCardActions';
 
 export const Projects = () => {
   const [projects, setProjects] = useState([]);
@@ -26,7 +29,9 @@ export const Projects = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const [selectedModalProject, setSelectedModalProject] = useState(null);
+  const [selectedLiveDemoProject, setSelectedLiveDemoProject] = useState(null);
   const navigate = useNavigate();
+
 
   // Primary categories tailored to the verified projects
   const filters = [
@@ -44,15 +49,17 @@ export const Projects = () => {
       try {
         const data = await getProjects();
         if (isMounted) {
-          setProjects(data && data.length > 0 ? data : INITIAL_PROJECTS);
+          const raw = data && data.length > 0 ? data : INITIAL_PROJECTS;
+          setProjects(raw.map(normalizeProject));
         }
       } catch (err) {
         console.error('Error fetching projects:', err);
-        if (isMounted) setProjects(INITIAL_PROJECTS);
+        if (isMounted) setProjects(INITIAL_PROJECTS.map(normalizeProject));
       } finally {
         if (isMounted) setLoading(false);
       }
     };
+
     fetchProjects();
 
     return () => {
@@ -271,49 +278,11 @@ export const Projects = () => {
                       )}
                     </div>
 
-                    {/* Card Actions */}
-                    <div className="pt-4 border-t border-slate-200/80 dark:border-slate-800/80 flex items-center justify-between gap-2">
-                      <Link
-                        to={projectUrl}
-                        onClick={(e) => e.stopPropagation()}
-                        className="px-4 py-2 rounded-xl text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-500 shadow-md shadow-indigo-600/20 transition inline-flex items-center gap-1.5 group-hover:scale-102"
-                      >
-                        View Project <ArrowRight className="w-3.5 h-3.5" />
-                      </Link>
-
-                      <div className="flex items-center gap-1.5" onClick={(e) => e.stopPropagation()}>
-                        {project.githubUrl && (
-                          <a
-                            href={project.githubUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-white hover:bg-slate-800 transition"
-                            title="GitHub Code Repository"
-                          >
-                            <Github className="w-4 h-4" />
-                          </a>
-                        )}
-                        {project.liveDemoUrl ? (
-                          <a
-                            href={project.liveDemoUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-white hover:bg-indigo-600 transition"
-                            title="Open Live Demo"
-                          >
-                            <ExternalLink className="w-4 h-4" />
-                          </a>
-                        ) : (
-                          <button
-                            onClick={() => setSelectedModalProject(project)}
-                            className="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/60 transition"
-                            title="Deployment & Local Setup Guide"
-                          >
-                            <Terminal className="w-4 h-4" />
-                          </button>
-                        )}
-                      </div>
-                    </div>
+                    {/* Card Actions: Live Demo, View Details, GitHub Source */}
+                    <ProjectCardActions
+                      project={project}
+                      onOpenLiveDemo={(p) => setSelectedLiveDemoProject(p)}
+                    />
                   </div>
                 </div>
               </motion.div>
@@ -322,7 +291,15 @@ export const Projects = () => {
         </div>
       )}
 
-      {/* Deployment & Local Setup Modal */}
+      {/* Live Demo Status & Launch Modal */}
+      <LiveDemoStatusModal
+        isOpen={!!selectedLiveDemoProject}
+        onClose={() => setSelectedLiveDemoProject(null)}
+        project={selectedLiveDemoProject}
+        onOpenDeployGuide={(p) => setSelectedModalProject(p)}
+      />
+
+      {/* Deployment & Technical Run Command Modal */}
       <DeploymentInfoModal
         isOpen={!!selectedModalProject}
         onClose={() => setSelectedModalProject(null)}
@@ -331,3 +308,4 @@ export const Projects = () => {
     </div>
   );
 };
+

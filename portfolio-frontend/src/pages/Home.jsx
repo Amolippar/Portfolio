@@ -25,6 +25,9 @@ import { getProfile, getProjects } from '../services/api';
 import { ProjectModal } from '../components/ProjectModal';
 import { ResumeModal } from '../components/ResumeModal';
 import { DeploymentInfoModal } from '../components/showcases/DeploymentInfoModal';
+import { LiveDemoStatusModal } from '../components/showcases/LiveDemoStatusModal';
+import { ProjectCardActions } from '../components/showcases/ProjectCardActions';
+import { normalizeProject } from '../config/projectsConfig';
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -32,8 +35,10 @@ export const Home = () => {
   const [featuredProjects, setFeaturedProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
   const [selectedDeploymentProject, setSelectedDeploymentProject] = useState(null);
+  const [selectedLiveDemoProject, setSelectedLiveDemoProject] = useState(null);
   const [resumeModalOpen, setResumeModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,9 +48,11 @@ export const Home = () => {
           getProjects()
         ]);
         setProfile(profileData);
-        // Take top 3 projects as featured
-        const featured = (projectsData || []).filter(p => p.isFeatured).slice(0, 3);
-        setFeaturedProjects(featured.length > 0 ? featured : (projectsData || []).slice(0, 3));
+        // Take top 3 projects as featured, normalized with complete metadata
+        const rawFeatured = (projectsData || []).filter(p => p.isFeatured).slice(0, 3);
+        const finalList = rawFeatured.length > 0 ? rawFeatured : (projectsData || []).slice(0, 3);
+        setFeaturedProjects(finalList.map(normalizeProject));
+
       } catch (err) {
         console.error('Error fetching home data:', err);
       } finally {
@@ -181,8 +188,8 @@ export const Home = () => {
                     <img
                       src="/images/amol-profile.jpg"
                       alt="Amol Ippar - Software Developer"
-                      className="profile-image" 
-                    />
+                      className="profile-image"
+/>
                   </div>
                 </div>
 
@@ -274,7 +281,7 @@ export const Home = () => {
               </h2>
               <div className="space-y-4 text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
                 <p>
-                  I am a passionate software developer with a Bachelor of Engineering in Information Technology from Savitribai Phule Pune University (graduated December 2024). I enjoy creating modern web applications and solving real-world problems through technology. My primary interests include frontend development, backend development, REST APIs and database-driven applications.
+                  I am a passionate software developer with a Bachelor of Engineering in Information Technology from Savitribai Phule Pune University. I enjoy creating modern web applications and solving real-world problems through technology. My primary interests include frontend development, backend development, REST APIs and database-driven applications.
                 </p>
                 <p>
                   I focus on writing clean, readable code and architecting scalable solutions. Whether developing responsive UI interfaces using React and Tailwind CSS or building secure RESTful backends with Spring Boot and MySQL, I strive for high performance, maintainability, and great user experiences.
@@ -399,56 +406,17 @@ export const Home = () => {
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-slate-200/80 dark:border-slate-800/80 flex items-center justify-between">
-                  <Link
-                    to={`/projects/${project.slug || project.id}`}
-                    onClick={(e) => e.stopPropagation()}
-                    className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline inline-flex items-center gap-1"
-                  >
-                    View Project <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-
-                  <div className="flex items-center gap-2">
-                    {project.githubUrl && (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="p-1.5 rounded-lg text-slate-500 hover:text-slate-900 dark:hover:text-white"
-                        title="GitHub"
-                      >
-                        <Github className="w-4 h-4" />
-                      </a>
-                    )}
-                    {project.liveDemoUrl ? (
-                      <a
-                        href={project.liveDemoUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="p-1.5 rounded-lg text-slate-500 hover:text-indigo-500"
-                        title="Live Demo"
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                      </a>
-                    ) : (
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setSelectedDeploymentProject(project);
-                        }}
-                        className="p-1.5 rounded-lg text-slate-500 hover:text-indigo-600 dark:hover:text-indigo-400"
-                        title="Deployment & Architecture Guide"
-                      >
-                        <Terminal className="w-4 h-4" />
-                      </button>
-                    )}
-                  </div>
-                </div>
+                {/* Card Actions: Live Demo, View Details, GitHub */}
+                <ProjectCardActions
+                  project={project}
+                  onOpenLiveDemo={(p) => setSelectedLiveDemoProject(p)}
+                />
               </div>
             </motion.div>
           ))}
         </div>
       </section>
+
 
       {/* 6. CALL TO ACTION BANNER */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -497,6 +465,13 @@ export const Home = () => {
         profile={profile}
       />
 
+      <LiveDemoStatusModal
+        isOpen={!!selectedLiveDemoProject}
+        onClose={() => setSelectedLiveDemoProject(null)}
+        project={selectedLiveDemoProject}
+        onOpenDeployGuide={(p) => setSelectedDeploymentProject(p)}
+      />
+
       <DeploymentInfoModal
         isOpen={!!selectedDeploymentProject}
         onClose={() => setSelectedDeploymentProject(null)}
@@ -505,3 +480,4 @@ export const Home = () => {
     </div>
   );
 };
+
