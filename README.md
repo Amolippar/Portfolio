@@ -253,24 +253,101 @@ Once logged in, the application stores the JWT token securely in `localStorage` 
 
 ---
 
-## 🌐 Deployment Instructions
+## 🌐 Production Deployment Guide
 
-### Production Frontend Build
+The portfolio is architected for zero-downtime, independent deployment of the React frontend, Spring Boot backend, and cloud MySQL database.
+
+---
+
+### Option 1: Vercel (Frontend) + Render / Railway (Backend & MySQL) [Recommended & Free]
+
+#### Step 1: Deploy React Frontend to Vercel
+1. Log in to **[Vercel](https://vercel.com/)** using your GitHub account.
+2. Click **"Add New"** → **"Project"**.
+3. Import your repository: **`Amolippar/Portfolio`**.
+4. Configure Project Settings:
+   - **Framework Preset**: `Vite`
+   - **Root Directory**: `portfolio-frontend` (Click Edit and select `portfolio-frontend`)
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `dist`
+5. Under **Environment Variables**, add:
+   - `VITE_API_BASE_URL`: `https://your-backend-app.onrender.com/api` *(You can update this after deploying the backend; during initial build, fallback mode will seamlessly display all portfolio data).*
+6. Click **Deploy**. Your portfolio will be live at `https://portfolio-<username>.vercel.app`!
+
+#### Step 2: Set Up Free Cloud MySQL
+Choose either of these 100% free cloud MySQL providers:
+- **[Aiven for MySQL](https://aiven.io/)** (Free tier: 5GB, 1 CPU, 1GB RAM, always free)
+- **[TiDB Cloud Serverless](https://tidbcloud.com/)** (Free tier: 25GB, MySQL compatible)
+- **[Railway](https://railway.app/)** (One-click MySQL provision)
+
+Copy your MySQL connection details: Host, Port, Database (`portfolio_db`), Username, and Password.
+
+#### Step 3: Deploy Spring Boot Backend to Render
+1. Log in to **[Render](https://render.com/)** using GitHub.
+2. Click **"New +"** → **"Web Service"**.
+3. Connect your repository **`Amolippar/Portfolio`**.
+4. Configure Web Service:
+   - **Name**: `amol-portfolio-backend`
+   - **Language**: `Docker`
+   - **Root Directory**: `portfolio-backend`
+   - **Dockerfile Path**: `Dockerfile`
+   - **Instance Type**: `Free`
+5. Under **Environment Variables**, set:
+   - `PORT`: `8080`
+   - `DB_URL`: `jdbc:mysql://<your-db-host>:<port>/portfolio_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&createDatabaseIfNotExist=true`
+   - `DB_USERNAME`: `<your-db-user>`
+   - `DB_PASSWORD`: `<your-db-password>`
+   - `JWT_SECRET`: `404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970`
+   - `CORS_ALLOWED_ORIGINS`: `https://*.vercel.app,http://localhost:5173`
+6. Click **Create Web Service**. Spring Boot will build, initialize MySQL tables, seed all 10 projects, skills, education milestones, and expose the REST endpoints at your Render URL!
+
+---
+
+### Option 2: Full-Stack Deployment with Docker Compose
+For running locally or on any cloud VPS (DigitalOcean, AWS EC2, Linode, Hetzner):
+```bash
+git clone https://github.com/Amolippar/Portfolio.git
+cd Portfolio
+docker compose up -d --build
+```
+This automatically boots:
+- MySQL 8.0 on port `3306` with persistent volume `mysql_data`
+- Spring Boot 3 on port `8080` with automatic DB migrations & seeding
+- React SPA served via optimized Nginx on port `80` (with SPA routing and caching)
+
+---
+
+### Option 3: Manual Production Builds
+
+#### Frontend Build
 ```bash
 cd portfolio-frontend
+npm install
 npm run build
+# Production artifacts in dist/
 ```
-The production bundle will be generated in `portfolio-frontend/dist/`. This can be hosted on **Vercel, Netlify, AWS S3 / CloudFront**, or served statically through Nginx.
 
-### Production Backend Build
+#### Backend Build
 ```bash
 cd portfolio-backend
 mvn clean package -DskipTests
+# Executable standalone JAR in target/portfolio-backend-1.0.0.jar
+java -jar target/portfolio-backend-1.0.0.jar
 ```
-The executable JAR is generated at `portfolio-backend/target/portfolio-backend-1.0.0.jar`. You can run this directly on any VPS (DigitalOcean, AWS EC2, Render, Railway) with:
-```bash
-java -jar portfolio-backend-1.0.0.jar --spring.profiles.active=prod
-```
+
+---
+
+### 🔑 Environment Variables Reference
+
+| Variable | Target | Description | Example / Default |
+|---|---|---|---|
+| `VITE_API_BASE_URL` | Frontend | Spring Boot REST API base URL | `https://api.yourdomain.com/api` |
+| `PORT` | Backend | HTTP port for Spring Boot server | `8080` |
+| `DB_URL` | Backend | JDBC URL for MySQL database | `jdbc:mysql://host:3306/portfolio_db` |
+| `DB_USERNAME` | Backend | MySQL database username | `root` |
+| `DB_PASSWORD` | Backend | MySQL database password | `password` |
+| `JWT_SECRET` | Backend | 256-bit secret key for signing JWTs | Base64 / Hex 32-byte key |
+| `CORS_ALLOWED_ORIGINS` | Backend | Comma-separated allowed frontend domains | `https://*.vercel.app,http://localhost:5173` |
 
 ---
 
