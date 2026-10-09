@@ -28,8 +28,9 @@ export const PortfolioDemo = () => {
   const fetchEndpoint = async (endpoint) => {
     setActiveEndpoint(endpoint);
     setIsLoading(true);
+    const backendBase = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api').replace(/\/api\/?$/, '');
     try {
-      const res = await fetch(`http://localhost:8080${endpoint}`);
+      const res = await fetch(`${backendBase}${endpoint}`);
       if (res.ok) {
         const data = await res.json();
         setApiResponse({
