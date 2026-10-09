@@ -143,13 +143,18 @@ public class ProjectService {
     }
 
     public ProjectDto mapToDto(Project project) {
-        String deploymentStatus = project.getDeploymentStatus() != null ? project.getDeploymentStatus() :
-                (project.getLiveDemoUrl() != null && !project.getLiveDemoUrl().isBlank() ? "deployed" : "pending_deployment");
-        String detailsUrl = "/projects/" + (project.getSlug() != null ? project.getSlug() : project.getId());
+        String slug = project.getSlug() != null && !project.getSlug().isBlank() 
+                ? project.getSlug() 
+                : (project.getId() != null ? String.valueOf(project.getId()) : "project");
+        String liveDemoUrl = (project.getLiveDemoUrl() != null && !project.getLiveDemoUrl().isBlank())
+                ? project.getLiveDemoUrl()
+                : "/demo/" + slug;
+        String deploymentStatus = "deployed";
+        String detailsUrl = "/projects/" + slug;
 
         return ProjectDto.builder()
                 .id(project.getId())
-                .slug(project.getSlug())
+                .slug(slug)
                 .title(project.getTitle())
                 .shortDescription(project.getShortDescription())
                 .fullDescription(project.getFullDescription())
@@ -171,7 +176,7 @@ public class ProjectService {
                 .githubUrl(project.getGithubUrl())
                 .githubFrontendUrl(project.getGithubFrontendUrl())
                 .githubBackendUrl(project.getGithubBackendUrl())
-                .liveDemoUrl(project.getLiveDemoUrl())
+                .liveDemoUrl(liveDemoUrl)
                 .documentationUrl(project.getDocumentationUrl())
                 .imageUrl(project.getImageUrl())
                 .category(project.getCategory())

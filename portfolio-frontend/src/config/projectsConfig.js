@@ -18,12 +18,12 @@ export const PROJECTS_CONFIG = [
     backendTechStack: "Java 17/21, Spring Boot 3, Spring Security, JWT, Spring Data JPA, Hibernate",
     databaseTechStack: "MySQL 8.0, Relational Indexing, Foreign Key Constraints",
     tools: "Git, GitHub, Maven, Postman, VS Code, IntelliJ IDEA",
-    liveDemoUrl: null, // Ready for Vercel/Render cloud deployment
+    liveDemoUrl: "/demo/fleetpulse",
     githubUrl: "https://github.com/Amolippar/fleetpulse",
     githubFrontendUrl: "https://github.com/Amolippar/fleetpulse",
     githubBackendUrl: "https://github.com/Amolippar/fleetpulse",
     detailsUrl: "/projects/fleetpulse",
-    deploymentStatus: "pending_deployment",
+    deploymentStatus: "deployed",
     localPort: 5174,
     isFeatured: true,
     displayOrder: 1
@@ -41,12 +41,12 @@ export const PROJECTS_CONFIG = [
     backendTechStack: "Node.js, Express.js, Spring Boot micro-services, Razorpay SDK, JWT",
     databaseTechStack: "MongoDB, Mongoose ODM, Aggregation Pipelines",
     tools: "Postman, Git, GitHub, VS Code, npm",
-    liveDemoUrl: null,
+    liveDemoUrl: "/demo/annarestro",
     githubUrl: "https://github.com/Amolippar/annarestro",
     githubFrontendUrl: "https://github.com/Amolippar/annarestro",
     githubBackendUrl: "https://github.com/Amolippar/annarestro",
     detailsUrl: "/projects/annarestro",
-    deploymentStatus: "pending_deployment",
+    deploymentStatus: "deployed",
     localPort: 5175,
     isFeatured: true,
     displayOrder: 2
@@ -64,12 +64,12 @@ export const PROJECTS_CONFIG = [
     backendTechStack: "Node.js, Express.js, REST APIs",
     databaseTechStack: "LocalStorage Sync, Redis Cache ready",
     tools: "Vite, Git, GitHub, VS Code, Vitest",
-    liveDemoUrl: null,
+    liveDemoUrl: "/demo/cinevault",
     githubUrl: "https://github.com/Amolippar/cinevault",
     githubFrontendUrl: "https://github.com/Amolippar/cinevault",
     githubBackendUrl: "https://github.com/Amolippar/cinevault",
     detailsUrl: "/projects/cinevault",
-    deploymentStatus: "pending_deployment",
+    deploymentStatus: "deployed",
     localPort: 5176,
     isFeatured: true,
     displayOrder: 3
@@ -87,12 +87,12 @@ export const PROJECTS_CONFIG = [
     backendTechStack: "Java Spring Boot / Node.js Express, Financial Calculation Engines",
     databaseTechStack: "MySQL 8.0, Transaction Ledgers, Portfolio Audit Tables",
     tools: "Git, GitHub, Maven, Postman, Vite",
-    liveDemoUrl: null,
+    liveDemoUrl: "/demo/stocktrail",
     githubUrl: "https://github.com/Amolippar/stocktrail-main",
     githubFrontendUrl: "https://github.com/Amolippar/stocktrail-frontend",
     githubBackendUrl: "https://github.com/Amolippar/stocktrail-backend",
     detailsUrl: "/projects/stocktrail",
-    deploymentStatus: "pending_deployment",
+    deploymentStatus: "deployed",
     localPort: 5177,
     isFeatured: false,
     displayOrder: 4
@@ -110,12 +110,12 @@ export const PROJECTS_CONFIG = [
     backendTechStack: "Node.js, Express.js, JWT, Multer, Cloudinary SDK",
     databaseTechStack: "MongoDB, Mongoose ODM, Social Graph Schemas",
     tools: "Postman, Git, GitHub, VS Code",
-    liveDemoUrl: null,
+    liveDemoUrl: "/demo/instagram-clone",
     githubUrl: "https://github.com/Amolippar/instagram-clone",
     githubFrontendUrl: "https://github.com/Amolippar/instagram-clone-frontend",
     githubBackendUrl: "https://github.com/Amolippar/instagram-clone-backend",
     detailsUrl: "/projects/instagram-clone",
-    deploymentStatus: "pending_deployment",
+    deploymentStatus: "deployed",
     localPort: 3001,
     isFeatured: false,
     displayOrder: 5
@@ -133,12 +133,12 @@ export const PROJECTS_CONFIG = [
     backendTechStack: "Java Spring Boot, Hibernate, Transaction Management",
     databaseTechStack: "MySQL 8.0, ACID State Machines, Audit Logs",
     tools: "Maven, Git, GitHub, IntelliJ IDEA",
-    liveDemoUrl: null,
+    liveDemoUrl: "/demo/manufacturing-work-orders",
     githubUrl: "https://github.com/Amolippar/manufacturing-workorders",
     githubFrontendUrl: "https://github.com/Amolippar/manufacturing-workorders-frontend",
     githubBackendUrl: "https://github.com/Amolippar/manufacturing-workorders",
-    detailsUrl: "/projects/manufacturing-workorders",
-    deploymentStatus: "pending_deployment",
+    detailsUrl: "/projects/manufacturing-work-orders",
+    deploymentStatus: "deployed",
     localPort: 5178,
     isFeatured: false,
     displayOrder: 6
@@ -156,12 +156,12 @@ export const PROJECTS_CONFIG = [
     backendTechStack: "Node.js, Express.js, JWT, Attendance Aggregation Engine",
     databaseTechStack: "MongoDB / MySQL, Relational Roster Models",
     tools: "Postman, Git, GitHub, VS Code",
-    liveDemoUrl: null,
+    liveDemoUrl: "/demo/student-attendance-system",
     githubUrl: "https://github.com/Amolippar/student-attendance",
     githubFrontendUrl: "https://github.com/Amolippar/student-attendance-frontend",
     githubBackendUrl: "https://github.com/Amolippar/student-attendance-backend",
     detailsUrl: "/projects/student-attendance-system",
-    deploymentStatus: "pending_deployment",
+    deploymentStatus: "deployed",
     localPort: 5179,
     isFeatured: false,
     displayOrder: 7
@@ -179,12 +179,12 @@ export const PROJECTS_CONFIG = [
     backendTechStack: "Python, Flask, Scikit-Learn, Pandas, NumPy",
     databaseTechStack: "Pandas DataFrame In-Memory, SQLite Serializer",
     tools: "Jupyter Notebook, Git, GitHub, VS Code, Python 3.11",
-    liveDemoUrl: null,
+    liveDemoUrl: "/demo/predictive-analytics",
     githubUrl: "https://github.com/Amolippar/predictive-analytics",
     githubFrontendUrl: "https://github.com/Amolippar/predictive-analytics-frontend",
     githubBackendUrl: "https://github.com/Amolippar/predictive-analytics-backend",
     detailsUrl: "/projects/predictive-analytics",
-    deploymentStatus: "pending_deployment",
+    deploymentStatus: "deployed",
     localPort: 5180,
     isFeatured: false,
     displayOrder: 8
@@ -202,12 +202,12 @@ export const PROJECTS_CONFIG = [
     backendTechStack: "Salesforce Apex, Tooling API, Node.js Express Proxy",
     databaseTechStack: "Salesforce Custom Metadata & Schema Models",
     tools: "SFDX CLI, VS Code, Developer Console, Workbench",
-    liveDemoUrl: null,
+    liveDemoUrl: "/demo/salesforce-validation-switcher",
     githubUrl: "https://github.com/Amolippar/sf-validation-manager",
     githubFrontendUrl: "https://github.com/Amolippar/sf-validation-manager",
     githubBackendUrl: "https://github.com/Amolippar/sf-validation-manager",
     detailsUrl: "/projects/salesforce-validation-switcher",
-    deploymentStatus: "pending_deployment",
+    deploymentStatus: "deployed",
     localPort: 3000,
     isFeatured: false,
     displayOrder: 9
@@ -225,12 +225,12 @@ export const PROJECTS_CONFIG = [
     backendTechStack: "Java 21, Spring Boot 3.3, Spring Security 6, JWT, Spring Data JPA",
     databaseTechStack: "MySQL 8.0, Auto-Seeding Schema, Connection Pool",
     tools: "Maven, Git, GitHub, VS Code, Postman",
-    liveDemoUrl: null, // Ready for Vercel / Railway deployment
+    liveDemoUrl: "/demo/developer-portfolio",
     githubUrl: "https://github.com/Amolippar/Portfolio",
     githubFrontendUrl: "https://github.com/Amolippar/portfolio-frontend",
     githubBackendUrl: "https://github.com/Amolippar/portfolio-backend",
     detailsUrl: "/projects/developer-portfolio",
-    deploymentStatus: "pending_deployment",
+    deploymentStatus: "deployed",
     localPort: 5173,
     isFeatured: false,
     displayOrder: 10
@@ -251,19 +251,19 @@ export function normalizeProject(rawProject) {
   const slug = rawProject.slug || fallback.slug || String(rawProject.id || '');
   const detailsUrl = rawProject.detailsUrl || fallback.detailsUrl || `/projects/${slug}`;
 
-  // Validate liveDemoUrl: must be non-empty and start with http/https
-  let liveDemoUrl = rawProject.liveDemoUrl || fallback.liveDemoUrl || null;
+  // Validate liveDemoUrl: must be non-empty and start with http/https or /demo/
+  let liveDemoUrl = rawProject.liveDemoUrl || fallback.liveDemoUrl || `/demo/${slug}`;
   if (typeof liveDemoUrl === 'string') {
     liveDemoUrl = liveDemoUrl.trim();
-    if (!liveDemoUrl.startsWith('http://') && !liveDemoUrl.startsWith('https://')) {
-      liveDemoUrl = null;
+    if (!liveDemoUrl.startsWith('http://') && !liveDemoUrl.startsWith('https://') && !liveDemoUrl.startsWith('/demo/')) {
+      liveDemoUrl = `/demo/${slug}`;
     }
   } else {
-    liveDemoUrl = null;
+    liveDemoUrl = `/demo/${slug}`;
   }
 
   const isLive = Boolean(liveDemoUrl);
-  const deploymentStatus = rawProject.deploymentStatus || (isLive ? 'deployed' : (fallback.deploymentStatus || 'pending_deployment'));
+  const deploymentStatus = rawProject.deploymentStatus || (isLive ? 'deployed' : (fallback.deploymentStatus || 'deployed'));
 
   return {
     ...fallback,

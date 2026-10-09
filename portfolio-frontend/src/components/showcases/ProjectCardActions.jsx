@@ -10,7 +10,7 @@ export const ProjectCardActions = ({
 }) => {
   if (!project) return null;
 
-  const isLive = Boolean(project.liveDemoUrl && project.liveDemoUrl.startsWith('http'));
+  const isLive = Boolean(project.liveDemoUrl && (project.liveDemoUrl.startsWith('http') || project.liveDemoUrl.startsWith('/demo/')));
   const detailsUrl = project.detailsUrl || `/projects/${project.slug || project.id}`;
   const githubUrl = project.githubUrl || 'https://github.com/Amolippar';
 
